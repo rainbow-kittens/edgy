@@ -1,0 +1,92 @@
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+ 
+<style type="text/css">
+      .on  { background:green; }
+      .off { background:blue; }
+                
+                 input[type=button] {
+                              color: white;
+                              font-size: 2.5em;
+               }
+</style>
+ 
+<script>
+var accessToken = "675fc2dc404a99af6e4cb6e394be511e13e98236";
+var deviceID = "3b0037000447353138383138"
+var deviceID2 = "340035000347353138383138"
+var url = "https://api.spark.io/v1/devices/" + deviceID + "/relay";
+var url2 = "https://api.spark.io/v1/devices/" + deviceID2 + "/relay";
+ 
+ 
+function toggleState(item, relayNumber){
+               function setRelay(message){
+                              $.post(url, {params: message, access_token: accessToken}, callback);
+               } 
+               function callback(data, status){
+                              if (data.return_value == 1) {
+                                             if (item.className == "on") {
+                                                            item.className="off";
+                                             }
+                                             else {
+                                                            item.className="on";
+                                             }
+                              }
+                              else
+                              {
+                                             alert("Could not Connect to Photon");
+                              }
+               }
+   if(item.className == "on") {
+                 setRelay(relayNumber + "0");
+   } else {
+                 setRelay(relayNumber + "1");
+   }
+}
+function toggleState2(item, relayNumber){
+               function setRelay(message){
+                              $.post(url2, {params: message, access_token: accessToken}, callback);
+               } 
+               function callback(data, status){
+                              if (data.return_value == 1) {
+                                             if (item.className == "on") {
+                                                            item.className="off";
+                                             }
+                                             else {
+                                                            item.className="on";
+                                             }
+                              }
+                              else
+                              {
+                                             alert("Could not Connect to Photon");
+                              }
+               }
+   if(item.className == "on") {
+                 setRelay(relayNumber + "0");
+   } else {
+                 setRelay(relayNumber + "1");
+   }
+}
+ 
+</script>
+ 
+ 
+</head>              
+ 
+<body>
+ 
+<h1>Dunelm Control</h1>          
+ 
+<input type="button" id="btn" value=" Garage Lights  " class="off" onclick="toggleState(this, '1')" /> <br/>
+<input type="button" id="btn" value=" Garden Lights  " class="off" onclick="toggleState(this, '2')" /> <br/>
+<input type="button" id="btn" value="Driveway Lights" class="off" onclick="toggleState(this, '3')" /> <br/>
+<input type="button" id="btn" value="Relay 4" class="off" onclick="toggleState(this, '4')" /> <br/>
+ 
+<input type="button" id="btn" value=" Board 2 Relay 1 " class="off" onclick="toggleState2(this, '1')" /> <br/>
+<input type="button" id="btn" value=" Board 2 Relay 2" class="off" onclick="toggleState2(this, '2')" /> <br/>
+<input type="button" id="btn" value="Board 2 Relay 3" class="off" onclick="toggleState2(this, '3')" /> <br/>
+<input type="button" id="btn" value="Board 2 Relay 4" class="off" onclick="toggleState2(this, '4')" /> <br/>
+ 
+</body>
+</html>
